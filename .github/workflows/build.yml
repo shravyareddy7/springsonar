@@ -9,6 +9,9 @@ jobs:
   build:
     name: Build and analyze
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./sonar-spring
     steps:
       - uses: actions/checkout@v4
         with:
@@ -17,6 +20,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: 17
+          projectBaseDir: ./sonar-spring
           distribution: 'zulu' # Alternative distribution options are available.
       - name: Cache SonarCloud packages
         uses: actions/cache@v4
