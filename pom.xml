@@ -17,7 +17,12 @@
     <sonar.projectKey>springapp_spring-app</sonar.projectKey>
     <sonar.exclusions>**/entity/**, **/DAO/**</sonar.exclusions>
   </properties>
-
+<parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.0</version>
+        <relativePath/> 
+    </parent>
 
   <dependencies>
 
