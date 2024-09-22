@@ -60,12 +60,9 @@ public class MovieController {
     @GetMapping("/update-movie")
     public String updateMovieForm(@PathVariable int theatreId, @RequestParam("movieId") int movieId, Model model) {
         Movie movie = movieService.getMovieById(movieId); // Fetch movie by ID
-        if (movie == null) {
-            return "redirect:/theatres/" + theatreId + "/movies"; // If movie is not found, redirect to movies list
-        }
         model.addAttribute("movie", movie);
         model.addAttribute("theatreId", theatreId);
-        return "movie-form"; // Return the same movie form for editing
+        return "movie-form"; 
     }
 
     @GetMapping("/delete-movie")
