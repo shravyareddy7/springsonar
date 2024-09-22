@@ -66,7 +66,7 @@ public class MovieController {
     }
 
     @GetMapping("/delete-movie")
-    public String deleteMovie(@PathVariable int theatreId, @RequestParam("movieId") int movieId, RedirectAttributes redirectAttributes) {
+    public String deleteMovie(@PathVariable int theatreId, @RequestParam("movieId") int movieId) {
         Movie movie = movieService.getMovieById(movieId);
             movieService.deleteMovieById(movieId);
         return "redirect:/theatres/" + theatreId + "/movies"; // Redirect to the movies list after deletion
