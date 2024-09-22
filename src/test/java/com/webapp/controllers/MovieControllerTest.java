@@ -149,4 +149,24 @@ public class MovieControllerTest {
         verify(model, times(1)).addAttribute("theatreId", theatreId); // Ensure theatre ID is added
     }
 
+    @Test
+    void testDeleteMovie_Success() {
+        // Arrange
+        int theatreId = 1;
+        int movieId = 10;
+
+        Movie movie = new Movie("Movie1", "Genre1", 100); // Mock movie object
+        when(movieService.getMovieById(movieId)).thenReturn(movie); // Return the movie to delete
+        doNothing().when(movieService).deleteMovieById(movieId); // Simulate deletion
+
+
+        // Act
+        String viewName = movieController.deleteMovie(theatreId, movieId);
+
+        // Assert
+        verify(movieService, times(1)).getMovieById(movieId); // Verify that getMovieById is called
+        verify(movieService, times(1)).deleteMovieById(movieId); // Verify that deleteMovieById is called
+        assertEquals("redirect:/theatres/" + theatreId + "/movies", viewName); // Check redirection URL
+    }    
+
 }
