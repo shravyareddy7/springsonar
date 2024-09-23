@@ -169,4 +169,19 @@ public class MovieControllerTest {
         assertEquals("redirect:/theatres/" + theatreId + "/movies", viewName); // Check redirection URL
     }    
 
+    @Test
+    void testUpdateMovieForm_Success() {
+        int theatreId = 1;
+        int movieId = 10;
+        Movie movie = new Movie("Movie1", "Genre1", 100);
+        when(movieService.getMovieById(movieId)).thenReturn(movie);
+
+        String viewName = movieController.updateMovieForm(theatreId, movieId, model);
+
+        verify(movieService, times(1)).getMovieById(movieId);
+        verify(model, times(1)).addAttribute("movie", movie);
+        verify(model, times(1)).addAttribute("theatreId", theatreId);
+        assertEquals("movie-form", viewName);
+    }
+
 }
