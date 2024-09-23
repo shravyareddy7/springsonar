@@ -19,7 +19,7 @@ public class TheatreController {
 
     // Constructor injection
     @Autowired
-    public MovieController(TheatreService theatreService) {
+    public TheatreController(TheatreService theatreService) {
         this.theatreService = theatreService;
     }
 
