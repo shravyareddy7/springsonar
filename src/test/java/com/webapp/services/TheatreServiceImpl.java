@@ -97,8 +97,7 @@ class TheatreServiceImplTest {
 
     @Test
     void testDeleteTheatreById() {
-        // Given
-        Theatre theatre1 = new Theatre();
+        theatre1 = new Theatre();
         theatre1.setId(1);
         theatre1.setName("Cineplex");
         theatre1.setLocation("Downtown");
