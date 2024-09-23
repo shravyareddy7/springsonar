@@ -4,7 +4,6 @@ import com.webapp.entities.Movie;
 import com.webapp.entities.Theatre;
 import com.webapp.services.MovieService;
 import com.webapp.services.TheatreService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -76,7 +75,6 @@ public class MovieController {
 
     @GetMapping("/delete-movie")
     public String deleteMovie(@PathVariable int theatreId, @RequestParam("movieId") int movieId) {
-        Movie movie = movieService.getMovieById(movieId);
         movieService.deleteMovieById(movieId);
         return REDIRECT_MOVIES + theatreId + "/movies";
     }
