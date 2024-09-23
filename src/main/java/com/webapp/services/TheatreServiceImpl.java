@@ -2,7 +2,6 @@ package com.webapp.services;
 
 import com.webapp.dao.TheatreDAO;
 import com.webapp.entities.Theatre;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.webapp.exceptions.TheatreAlreadyExistsException;
 import javax.transaction.Transactional;
@@ -15,7 +14,7 @@ public class TheatreServiceImpl implements TheatreService{
    private TheatreDAO theatreDAO;
 
     // Constructor injection
-    public void TheatreService(TheatreDAO theatreDAO) {
+    public void theatreService(TheatreDAO theatreDAO) {
         this.theatreDAO = theatreDAO;
     }
 
