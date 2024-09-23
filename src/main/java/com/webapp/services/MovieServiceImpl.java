@@ -2,7 +2,6 @@ package com.webapp.services;
 
 import com.webapp.dao.MovieDAO;
 import com.webapp.entities.Movie;
-import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Set;
