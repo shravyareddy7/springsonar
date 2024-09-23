@@ -12,8 +12,12 @@ import java.util.Set;
 @Transactional
 public class MovieServiceImpl implements MovieService{
 
+    private final MovieDAO movieDAO;
+
     @Autowired
-    private MovieDAO movieDAO;
+    public MovieService(MovieDAO movieDAO) {
+        this.movieDAO = movieDAO;
+    }
     @Override
     public Set<Movie> getMoviesByTheatreId(int id) {
         return movieDAO.getMoviesByTheatreId(id);
