@@ -135,4 +135,33 @@ class TheatreControllerTest {
         verify(theatreService, times(1)).deleteTheatreById(theatreId); // Ensure delete was called
         assertEquals("redirect:/theatres", viewName); // Check the redirect
     }
+
+    @Test
+    void testShowTheatres() {
+        // Arrange
+        List<Theatre> theatres = new ArrayList<>();
+        theatres.add(new Theatre(1, "Theatre 1"));
+        theatres.add(new Theatre(2, "Theatre 2"));
+
+        // Mock behaviour
+        when(theatreService.getAllTheatres()).thenReturn(theatres);
+
+        // Act
+        String viewName = theatreController.showTheatres(model);
+
+        // Assert
+        verify(theatreService, times(1)).getAllTheatres(); // Verify that the service method was called once
+        verify(model, times(1)).addAttribute("theatres", theatres); // Verify that theatres were added to the model
+        assertEquals("theatre", viewName); // Verify that the correct view is returned
+    }
+
+    @Test
+    void testAddTheatre() {
+        // Act
+        String viewName = theatreController.addTheatre(model);
+
+        // Assert
+        verify(model, times(1)).addAttribute(eq("theatre"), any(Theatre.class)); // Verify that a new Theatre object is added to the model
+        assertEquals("theatre-form", viewName); // Verify that the correct view is returned
+    }
 }
