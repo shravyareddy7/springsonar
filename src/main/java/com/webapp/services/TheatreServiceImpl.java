@@ -4,7 +4,6 @@ import com.webapp.dao.TheatreDAO;
 import com.webapp.entities.Theatre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.webapp.exceptions.TheatreAlreadyExistsException;
 
 import javax.transaction.Transactional;
 import java.util.List;
