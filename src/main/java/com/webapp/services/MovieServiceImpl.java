@@ -12,7 +12,7 @@ public class MovieServiceImpl implements MovieService{
 
     private MovieDAO movieDAO;
     
-    public void movieService(MovieDAO movieDAO) {
+    public MovieServiceImpl(MovieDAO movieDAO) {
         this.movieDAO = movieDAO;
     }
     @Override
