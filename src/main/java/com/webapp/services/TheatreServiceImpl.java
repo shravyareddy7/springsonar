@@ -16,7 +16,7 @@ public class TheatreServiceImpl implements TheatreService{
    private final TheatreDAO theatreDAO;
 
     // Constructor injection
-    public TheatreService(TheatreDAO theatreDAO) {
+    public void TheatreService(TheatreDAO theatreDAO) {
         this.theatreDAO = theatreDAO;
     }
 
