@@ -15,8 +15,13 @@ import java.util.List;
 @RequestMapping("theatres")
 public class TheatreController {
 
+    private final TheatreService theatreService;
+
+    // Constructor injection
     @Autowired
-    private TheatreService theatreService;
+    public MovieController(TheatreService theatreService) {
+        this.theatreService = theatreService;
+    }
 
     @GetMapping("")
     public String showTheatres(Model model)
