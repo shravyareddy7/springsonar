@@ -26,11 +26,15 @@ public class MovieController {
     private static final String MOVIES_VIEW = "movies";
     private static final String REDIRECT_MOVIES = "redirect:/theatres/";
 
-    @Autowired
-    private MovieService movieService;
+     private final MovieService movieService;
+    private final TheatreService theatreService;
 
+    // Constructor injection
     @Autowired
-    private TheatreService theatreService;
+    public MovieController(MovieService movieService, TheatreService theatreService) {
+        this.movieService = movieService;
+        this.theatreService = theatreService;
+    }
 
     @GetMapping("/movies")
     public String displayMovies(@PathVariable int theatreId, Model model) {
