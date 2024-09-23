@@ -13,12 +13,9 @@ public class TheatreServiceImpl implements TheatreService{
 
    private TheatreDAO theatreDAO;
 
-    // Constructor injection
-    public void theatreService(TheatreDAO theatreDAO) {
-        this.theatreDAO = theatreDAO;
+    public TheatreServiceImpl(TheatreDAO theatreAO) {
+        this.theatreDAO =theatreDAO;
     }
-
-
     @Override
     public List<Theatre> getAllTheatres() {
         return theatreDAO.getAllTheatres();
