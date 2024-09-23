@@ -3,7 +3,6 @@ package com.webapp.controllers;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-import com.webapp.controllers.TheatreController;
 import com.webapp.entities.Theatre;
 import com.webapp.services.TheatreService;
 import org.junit.jupiter.api.BeforeEach;
