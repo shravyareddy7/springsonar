@@ -28,14 +28,12 @@ public class MovieController {
 
      private final MovieService movieService;
     private final TheatreService theatreService;
-
-    // Constructor injection
-    @Autowired
-    public MovieController(MovieService movieService, TheatreService theatreService) {
+     public MovieController(MovieService movieService, TheatreService theatreService) {
         this.movieService = movieService;
         this.theatreService = theatreService;
     }
 
+    // Display all movies by theatre ID
     @GetMapping("/movies")
     public String displayMovies(@PathVariable int theatreId, Model model) {
         Set<Movie> movies = movieService.getMoviesByTheatreId(theatreId);
@@ -44,6 +42,7 @@ public class MovieController {
         return MOVIES_VIEW;
     }
 
+    // Show the form for adding a new movie
     @GetMapping("/add-movie")
     public String showAddMovieForm(@PathVariable int theatreId, Model model) {
         Movie movie = new Movie();
@@ -51,7 +50,8 @@ public class MovieController {
         model.addAttribute(THEATRE_ID_ATTRIBUTE, theatreId); // Pass the theatre ID to the form
         return MOVIE_FORM_VIEW; // Return view for the movie form
     }
-    
+
+    // Save the movie
     @PostMapping("/save-movie")
     public String saveMovie(@PathVariable int theatreId, @Valid @ModelAttribute(MOVIE_ATTRIBUTE) Movie movie, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
         // Get the associated theatre by ID
@@ -76,6 +76,7 @@ public class MovieController {
 
     @GetMapping("/delete-movie")
     public String deleteMovie(@PathVariable int theatreId, @RequestParam("movieId") int movieId) {
+        Movie movie = movieService.getMovieById(movieId);
         movieService.deleteMovieById(movieId);
         return REDIRECT_MOVIES + theatreId + "/movies";
     }
