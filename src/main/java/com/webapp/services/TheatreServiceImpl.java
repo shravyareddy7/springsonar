@@ -4,6 +4,7 @@ import com.webapp.dao.TheatreDAO;
 import com.webapp.entities.Theatre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.webapp.exceptions.TheatreAlreadyExistsException;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -12,8 +13,13 @@ import java.util.List;
 @Transactional
 public class TheatreServiceImpl implements TheatreService{
 
-    @Autowired
-    private TheatreDAO theatreDAO;
+   private final TheatreDAO theatreDAO;
+
+    // Constructor injection
+    public TheatreService(TheatreDAO theatreDAO) {
+        this.theatreDAO = theatreDAO;
+    }
+
 
     @Override
     public List<Theatre> getAllTheatres() {
@@ -23,7 +29,7 @@ public class TheatreServiceImpl implements TheatreService{
     @Override
     public void saveTheatre(Theatre theatre) {
         if(theatreDAO.existsByNameAndLocation(theatre.getName(), theatre.getLocation()))
-            throw new RuntimeException("A theatre with the same name and location already exists!");
+            throw new TheatreAlreadyExistsException("A theatre with the same name and location already exists!");
         theatreDAO.saveTheatre(theatre);
     }
 
