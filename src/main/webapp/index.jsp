@@ -1,4 +1,5 @@
 <html  lang="en">
+<!DOCTYPE html>
 <head>
     <title>Add/Update Movie</title>
 </head>
