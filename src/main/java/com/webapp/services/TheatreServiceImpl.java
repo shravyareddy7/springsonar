@@ -12,7 +12,7 @@ import java.util.List;
 @Transactional
 public class TheatreServiceImpl implements TheatreService{
 
-   private final TheatreDAO theatreDAO;
+   private TheatreDAO theatreDAO;
 
     // Constructor injection
     public void TheatreService(TheatreDAO theatreDAO) {
