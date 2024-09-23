@@ -18,11 +18,15 @@ import java.util.Set;
 @RequestMapping("/theatres/{theatreId}")
 public class MovieController {
 
-    @Autowired
-    private MovieService movieService;
+    private final MovieService movieService;
+    private final TheatreService theatreService;
 
+    // Constructor injection
     @Autowired
-    private TheatreService theatreService;
+    public MovieController(MovieService movieService, TheatreService theatreService) {
+        this.movieService = movieService;
+        this.theatreService = theatreService;
+    }
 
     // Display all movies by theatre ID
     @GetMapping("/movies")
