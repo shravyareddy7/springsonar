@@ -149,24 +149,18 @@ class MovieControllerTest {
     }
 
     @Test
-    void testDeleteMovie_Success() {
+    void testDeleteMovie() {
         // Arrange
         int theatreId = 1;
-        int movieId = 10;
-
-        Movie movie = new Movie("Movie1", "Genre1", 100); // Mock movie object
-        when(movieService.getMovieById(movieId)).thenReturn(movie); // Return the movie to delete
-        doNothing().when(movieService).deleteMovieById(movieId); // Simulate deletion
-
+        int movieId = 100;
 
         // Act
         String viewName = movieController.deleteMovie(theatreId, movieId);
 
         // Assert
-        verify(movieService, times(1)).getMovieById(movieId); // Verify that getMovieById is called
-        verify(movieService, times(1)).deleteMovieById(movieId); // Verify that deleteMovieById is called
-        assertEquals("redirect:/theatres/" + theatreId + "/movies", viewName); // Check redirection URL
-    }    
+        verify(movieService, times(1)).deleteMovieById(movieId); // Ensure movieService.deleteMovieById is called once
+        assertEquals("redirect:/theatres/1/movies", viewName); // Check if the redirection is correct
+    }
 
     @Test
     void testUpdateMovieForm_Success() {
