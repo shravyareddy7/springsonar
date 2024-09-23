@@ -11,10 +11,12 @@ import java.util.List;
 @Transactional
 public class TheatreServiceImpl implements TheatreService{
 
-   private TheatreDAO theatreDAO;
+  private TheatreDAO theatreDAO;
 
-     public void theatreService(TheatreDAO theatreDAO) {
-        this.theatreDAO = theatreDAO;
+   // Constructor-based Dependency Injection
+   public TheatreServiceImpl(TheatreDAO theatreDAO) {
+       this.theatreDAO = theatreDAO;
+   }
     @Override
     public List<Theatre> getAllTheatres() {
         return theatreDAO.getAllTheatres();
