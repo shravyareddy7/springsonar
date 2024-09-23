@@ -13,9 +13,8 @@ public class TheatreServiceImpl implements TheatreService{
 
    private TheatreDAO theatreDAO;
 
-    public TheatreServiceImpl(TheatreDAO theatreAO) {
-        this.theatreDAO =theatreDAO;
-    }
+     public void theatreService(TheatreDAO theatreDAO) {
+        this.theatreDAO = theatreDAO;
     @Override
     public List<Theatre> getAllTheatres() {
         return theatreDAO.getAllTheatres();
