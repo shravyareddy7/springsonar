@@ -18,63 +18,62 @@ import java.util.Set;
 @RequestMapping("/theatres/{theatreId}")
 public class MovieController {
 
-    private final MovieService movieService;
-    private final TheatreService theatreService;
+    private static final String MOVIES_ATTRIBUTE = "movies";
+    private static final String MOVIE_ATTRIBUTE = "movie";
+    private static final String THEATRE_ID_ATTRIBUTE = "theatreId";
+    private static final String THEATRE_ATTRIBUTE = "theatre";
+    private static final String MOVIE_FORM_VIEW = "movie-form";
+    private static final String MOVIES_VIEW = "movies";
+    private static final String REDIRECT_MOVIES = "redirect:/theatres/";
 
-    // Constructor injection
     @Autowired
-    public MovieController(MovieService movieService, TheatreService theatreService) {
-        this.movieService = movieService;
-        this.theatreService = theatreService;
-    }
+    private MovieService movieService;
 
-    // Display all movies by theatre ID
+    @Autowired
+    private TheatreService theatreService;
+
     @GetMapping("/movies")
     public String displayMovies(@PathVariable int theatreId, Model model) {
         Set<Movie> movies = movieService.getMoviesByTheatreId(theatreId);
-        model.addAttribute("movies", movies);
-        model.addAttribute("theatre", theatreService.getTheatreById(theatreId));
-        return "movies"; // Return view that displays the movies
+        model.addAttribute(MOVIES_ATTRIBUTE, movies);
+        model.addAttribute(THEATRE_ATTRIBUTE, theatreService.getTheatreById(theatreId));
+        return MOVIES_VIEW;
     }
 
-    // Show the form for adding a new movie
     @GetMapping("/add-movie")
     public String showAddMovieForm(@PathVariable int theatreId, Model model) {
         Movie movie = new Movie();
-        model.addAttribute("movie", movie);
-        model.addAttribute("theatreId", theatreId); // Pass the theatre ID to the form
-        return "movie-form"; // Return view for the movie form
+        model.addAttribute(MOVIE_ATTRIBUTE, movie);
+        model.addAttribute(THEATRE_ID_ATTRIBUTE, theatreId); // Pass the theatre ID to the form
+        return MOVIE_FORM_VIEW; // Return view for the movie form
     }
-
-    // Save the movie
+    
     @PostMapping("/save-movie")
-    public String saveMovie(@PathVariable int theatreId, @Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+    public String saveMovie(@PathVariable int theatreId, @Valid @ModelAttribute(MOVIE_ATTRIBUTE) Movie movie, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
         // Get the associated theatre by ID
         Theatre theatre = theatreService.getTheatreById(theatreId);
         if (bindingResult.hasErrors()) {
-            model.addAttribute("theatreId", theatreId); // Pass the theatre ID to the model
-            return "movie-form"; // Return to the form with validation errors
+            model.addAttribute(THEATRE_ID_ATTRIBUTE, theatreId); // Pass the theatre ID to the model
+            return MOVIE_FORM_VIEW; // Return to the form with validation errors
         }
         movie.setTheatre(theatre);
 
         movieService.saveMovie(movie);
-        return "redirect:/theatres/" + theatreId + "/movies";
+        return REDIRECT_MOVIES + theatreId + "/movies";
     }
 
     @GetMapping("/update-movie")
     public String updateMovieForm(@PathVariable int theatreId, @RequestParam("movieId") int movieId, Model model) {
-        Movie movie = movieService.getMovieById(movieId); // Fetch movie by ID
-        model.addAttribute("movie", movie);
-        model.addAttribute("theatreId", theatreId);
-        return "movie-form"; 
+        Movie movie = movieService.getMovieById(movieId);
+        model.addAttribute(MOVIE_ATTRIBUTE, movie);
+        model.addAttribute(THEATRE_ID_ATTRIBUTE, theatreId);
+        return MOVIE_FORM_VIEW;
     }
 
     @GetMapping("/delete-movie")
     public String deleteMovie(@PathVariable int theatreId, @RequestParam("movieId") int movieId) {
         Movie movie = movieService.getMovieById(movieId);
-            movieService.deleteMovieById(movieId);
-        return "redirect:/theatres/" + theatreId + "/movies"; // Redirect to the movies list after deletion
+        movieService.deleteMovieById(movieId);
+        return REDIRECT_MOVIES + theatreId + "/movies";
     }
-
-
 }
