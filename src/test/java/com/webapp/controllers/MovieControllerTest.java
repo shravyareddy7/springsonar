@@ -164,9 +164,8 @@ class MovieControllerTest {
 
     @Test
     public void testInitBinder() {
-        WebDataBinder binder = mock(WebDataBinder.class);
-        movieController.initBinder(binder);
-        verify(binder, times(1)).registerCustomEditor(eq(String.class), any(StringTrimmerEditor.class));
+        ticketController.initBinder(binder);
+        verify(binder).registerCustomEditor(eq(Double.class), eq("ticketPrice"), any(CustomNumberEditor.class));
     }
 
 }
