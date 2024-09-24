@@ -35,6 +35,9 @@ class MovieControllerTest {
     @Mock
     private BindingResult bindingResult;
 
+    @Mock
+    private WebDataBinder binder;
+    
     @BeforeEach
     void setUp(){
         MockitoAnnotations.openMocks(this);
@@ -156,6 +159,12 @@ class MovieControllerTest {
         verify(model, times(1)).addAttribute("movie", movie);
         verify(model, times(1)).addAttribute("theatreId", theatreId);
         assertEquals("movie-form", viewName);
+    }
+
+    @Test
+    public void testInitBinder() {
+        ticketController.initBinder(binder);
+        verify(binder).registerCustomEditor(eq(Double.class), eq("ticketPrice"), any(CustomNumberEditor.class));
     }
 
 }
